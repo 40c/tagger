@@ -61,11 +61,13 @@ class TaggerController {
     $ner_matcher = new NamedEntityMatcher($potentialCandidates, $this->ner_vocabs);
     $ner_matcher->match();
     $this->tag_array = $ner_matcher->get_matches();
-    $unmatched_words = $ner_matcher->get_nonmatches();
-    $unmatched = new Unmatched($unmatched_words);
-    $unmatched->logUnmatched();
-    if ($this->return_unmatched) {
-      //TODO - Process and return unmatched entities
+    if (FALSE != $this->return_unmatched) {
+      $unmatched_words = $ner_matcher->get_nonmatches();
+      $unmatched = new Unmatched($unmatched_words);
+      $unmatched->logUnmatched();
+      if ($this->return_unmatched) {
+        //TODO - Process and return unmatched entities
+      }
     }
     if ($this->disambiguate) {
       require_once 'classes/Disambiguator.class.php';
