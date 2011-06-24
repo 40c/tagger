@@ -36,7 +36,7 @@ abstract class Matcher {
           unset($unmatched[$row['synonym']]);
           $matchword = $row['synonym'];
         }
-        $this->matches[$row['vid']][$row['tid']] = array('navn' => $row['name'], 'match' => $matchword, 'hits' => $row['count']);
+        $this->matches[$row['vid']][$row['tid']] = array('word' => $row['name'], 'match' => $matchword, 'hits' => $row['count']);
       }
       $this->nonmatches = array_flip($unmatched);
     }

@@ -28,7 +28,7 @@ class NamedEntityMatcher extends Matcher {
     // Get the alrady matched words out of the candidate list.
     foreach ($this->matches as $vocab) {
       foreach ($vocab as $plural_match) {
-        $key = array_search($plural_match['navn'], $this->search_items);
+        $key = array_search($plural_match['word'], $this->search_items);
         if ($key) {
           unset($this->search_items[$key]);
           unset($this->possible_plurals[$key]);

@@ -98,7 +98,7 @@ class TaggerController {
     $this->markedup_text = $this->text;
     foreach ($this->tag_array as $terms) {
       foreach ($terms as $tid => $term) {
-        $this->markedup_text = str_replace($term['navn'], '<span class="tagr-item" id="tid-' . $tid . '" property="dc:subject">' . $term['navn'] . '</span> ', $this->markedup_text);
+        $this->markedup_text = str_replace($term['word'], '<span class="tagr-item" id="tid-' . $tid . '" property="dc:subject">' . $term['word'] . '</span> ', $this->markedup_text);
       }
     }
     if ($this->nl2br) {

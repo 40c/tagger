@@ -49,7 +49,7 @@ class Disambiguator {
   public function getRelatedTags($tag) {
     $tagger_instance = Tagger::getTagger();
     $vocabularies = implode(',', array_keys($tagger_instance->getConfiguration('vocab_names')));
-    $sql = sprintf("SELECT l.tid, l.name, GROUP_CONCAT(r.rtid SEPARATOR ', ') AS rtids FROM term_synonym AS l LEFT JOIN term_relations AS r ON l.tid = r.tid WHERE l.vid IN (%s) AND l.name = '%s' GROUP BY l.tid", $vocabularies, $tag['navn']);
+    $sql = sprintf("SELECT l.tid, l.name, GROUP_CONCAT(r.rtid SEPARATOR ', ') AS rtids FROM term_synonym AS l LEFT JOIN term_relations AS r ON l.tid = r.tid WHERE l.vid IN (%s) AND l.name = '%s' GROUP BY l.tid", $vocabularies, $tag['word']);
     $matches = array();
     $result = TaggerQueryManager::query($sql);
     if ($result) {
