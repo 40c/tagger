@@ -7,11 +7,23 @@ class TaggerQueryHandler {
   private function __construct() {
     $tagger_instance = Tagger::getTagger();
     $db_settings = $tagger_instance->getConfiguration('db');
-    $this->link = mysqli_connect($db_settings['server'], $db_settings['username'], $db_settings['password'], $db_settings['name']);
-    if (!$this->link) {
-      die('Could not connect: ' . mysqli_error());
+
+    try {
+      if($db_settings['type'] != 'sqlite') {
+        // Anything but SQLite
+        $db_settings['dsn'] = $db_settings['type'].':dbname='.$db_settings['name'].';host='.$db_settings['server'];
+        $this->link = new PDO($db_settings['dsn'], $db_settings['username'], $db_settings['password'],
+                              array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
+      } else {
+        // SQLite only
+        $db_settings['dsn'] = $db_settings['type'] .':'. $db_settings['path'];
+        $this->link = new PDO($db_settings['dsn'], '', '',
+                              array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
+      }
+    } catch (PDOException $e) {
+      die('Could not connect: ' . $e->getMessage());
     }
-    mysqli_set_charset($this->link, 'utf8');
+
     // If you are on an older version of PHP and have trouble with the function
     // call above here, try this instead: mysql_query("SET NAMES 'utf8'");
   }
@@ -26,6 +38,12 @@ class TaggerQueryHandler {
       $c = __CLASS__;
       self::$instance = new $c;
     }
-    return mysqli_query(self::$instance->link, sprintf($sql, $args));
+    $result = self::$instance->link->query(sprintf($sql, $args));
+    if($result) {
+      return $result;
+    } else {
+      $error_msg = self::$instance->link->errorInfo();
+      die('Database error: '. $error_msg[2] . "\n" . 'Query: ' . $sql);
+    }
   }
 }
