@@ -33,4 +33,13 @@ class TaggerQueryManager {
       }
     }
   }
+
+  public static function getLink() {
+    $tagger_instance = Tagger::getTagger();
+    $dbhandler = $tagger_instance->getConfiguration('dbhandler');
+    if (!isset($dbhandler) || (isset($dbhandler) && $dbhandler == 'Default')) {
+      include_once 'TaggerQueryHandler.class.php';
+      return TaggerQueryHandler::getLink();
+    }
+  }
 }
