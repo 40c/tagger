@@ -32,6 +32,14 @@ class TaggerQueryHandler {
     $this->link = NULL;
   }
 
+  public function getLink() {
+    if (!isset(self::$instance)) {
+      $c = __CLASS__;
+      self::$instance = new $c;
+    }
+    return self::$instance->link;
+  }
+
   public function fetch($result, $type = 'assoc') {
     return $result->fetch(PDO::FETCH_ASSOC);
   }
