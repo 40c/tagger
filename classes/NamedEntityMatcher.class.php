@@ -3,8 +3,7 @@
  * @file
  * Contains NamedEntityMatcher.
  */
-require_once __ROOT__ . 'classes/Matcher.class.php';
-
+require_once __ROOT__ . 'db/TaggerQueryManager.class.php';
 require_once __ROOT__ . 'classes/Token.class.php';
 require_once __ROOT__ . 'classes/Tag.class.php';
 require_once __ROOT__ . 'classes/EntityPreprocessor.class.php';
@@ -162,6 +161,15 @@ class NamedEntityMatcher {
    */
   public function get_nonmatches() {
     return $this->nonmatches;
+  }
+
+  /**
+   * Sets tokens with lowercase keys
+   */
+  protected function setTokens($tokens) {
+    foreach($tokens as $token) {
+      $this->tokens[mb_strtolower($token->text)] = $token;
+    }
   }
 
   /**
