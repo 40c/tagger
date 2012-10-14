@@ -63,7 +63,7 @@ class NamedEntityMatcher {
         $ends_with_s->text = mb_strtolower(rtrim($ends_with_s->text, 's'));
       }
       $this->setTokens($possible_genitives);
-      $this->term_query();
+      $this->term_query($this->tokens);
     }
 
     //Merge the nonmatches from the first query with nonmatches from the genetive query
