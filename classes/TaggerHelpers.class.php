@@ -106,9 +106,7 @@ class TaggerHelpers {
 
     $arrays = func_get_args();
     $override = $arrays[0];
-    //var_dump($override);
     array_shift($arrays);
-    //var_dump($override);
 
     $merged = array();
     while ($arrays) {

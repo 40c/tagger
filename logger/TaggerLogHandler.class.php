@@ -87,8 +87,6 @@ EOH;
   private function logTerminal($msg, $level = TaggerLogManager::STANDARD) {
     $backtrace = debug_backtrace();
     foreach ($backtrace as $entry) {
-      //if ($entry['function'] == __FUNCTION__) {
-      //print_r($entry);
       $log_functions = array('logDebug', 'logVerbose', 'logStandard', 'logWarning', 'logError');
       if ($entry['class'] == 'TaggerLogManager' && in_array($entry['function'], $log_functions)) {
           $file_line = basename($entry['file']) . ', line ' . $entry['line'];

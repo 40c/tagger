@@ -522,9 +522,6 @@ class KeywordImporter {
     if ($text == '') {
       return array();
     }
-    if (is_array($text)) {
-      //var_dump($text);
-    }
 
     $words = Tokenizer::split_words(trim(mb_strtolower(strip_tags($text))));
     if (Tagger::getConfiguration('keyword', 'enable_stemmer')) {
