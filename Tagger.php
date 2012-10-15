@@ -16,8 +16,6 @@ define('__ROOT__', dirname(__FILE__) . '/');
  */
 define('TAGGER_VERSION', 4);
 
-
-ini_set('memory_limit', '92M');
 mb_internal_encoding('UTF-8');
 
 require_once __ROOT__ . 'classes/TaggerHelpers.class.php';
