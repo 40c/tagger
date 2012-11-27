@@ -9,6 +9,7 @@
       'server' => '<server>',
       'username' => '<username>',
       'password' => '<password>',
+      'port' => '<port>', // Leave empty to fallback to default port number.
       'type' => $tagger_conf['db']['type'],
     );
     

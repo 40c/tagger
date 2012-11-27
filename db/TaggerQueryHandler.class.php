@@ -21,7 +21,8 @@ class TaggerQueryHandler {
     try {
       if($db_settings['type'] != 'sqlite') {
         // Anything but SQLite
-        $db_settings['dsn'] = $db_settings['type'].':dbname='.$db_settings['name'].';host='.$db_settings['server'];
+        $db_settings['port'] = !empty($db_settings['port']) ? ';port=' . $db_settings['port'] : '';
+        $db_settings['dsn'] = $db_settings['type'].':dbname='.$db_settings['name'].';host='.$db_settings['server'].$db_settings['port'];
         $this->link = new PDO($db_settings['dsn'], $db_settings['username'], $db_settings['password'],
                               array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
       } else {
